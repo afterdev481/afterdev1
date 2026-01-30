@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PHZ CHEATS | PNG & Font Converter</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+            transition: 0.3s;
+            min-height: 100vh;
+        }
+
+        /* 🔥 Popup Dialog */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .dialog {
+            width: 340px;
+            background: linear-gradient(to bottom, #2196f3, #0d47a1);
+            border-radius: 20px;
+            padding: 18px;
+            color: #fff;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+            animation: pop 0.3s ease;
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .dialog-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+        }
+
+        .dialog-header .text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dialog-header .title {
+            font-weight: bold;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .dialog-header .subtitle {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+
+        .channel-box {
+            background: linear-gradient(to right, #42a5f5, #1e88e5);
+            padding: 14px;
+            border-radius: 14px;
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .dialog-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .dialog-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .btn-close {
+            background: #1565c0;
+            color: #fff;
+        }
+
+        .btn-close:hover {
+            background: #0d47a1;
+        }
+
+        .btn-join {
+            background: #00e676;
+            color: #000;
+        }
+
+        .btn-join:hover {
+            background: #00c853;
+        }
+
+        /* MAIN APP */
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #111;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 25px #00ff41;
+            transition: 0.3s;
+        }
+
+        .title-box {
+            background: #111;
+            border-radius: 10px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 18px #00ff41;
+            text-align: center;
+        }
+
+        .title-box h1 {
+            font-size: 24px;
+            color: #00ff41;
+            margin: 0;
+            text-shadow: 0 0 15px #00ff41;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: rgba(0, 255, 65, 0.7);
+            margin-bottom: 15px;
+        }
+
+        #themeSelect {
+            display: block;
+            margin: 0 auto 20px auto;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #00ff41;
+            background: #222;
+            color: #00ff41;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .inputs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-group label {
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: rgba(0, 255, 65, 0.85);
+        }
+
+        input[type="file"] {
+            background: #222;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            border-radius: 8px;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .buttons button {
+            background: #222;
+            color: #00ff41;
+            border: 1px solid #00ff41;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            flex: 1 1 45%;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .buttons button:hover {
+            background: rgba(0, 255, 65, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 320px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #00ff41;
+            border-radius: 10px;
+            padding: 14px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: none;
+            overflow: auto;
+            box-shadow: 0 0 15px #00ff41;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .footer {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 12px;
+            color: rgba(0, 255, 65, 0.7);
+        }
+
+        .footer a {
+            color: #00ff41;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media(max-width:600px) {
+            .inputs {
+                flex-direction: column;
+                align-items: center;
+            }
+            .buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            .buttons button {
+                flex: 1 1 45%;
+            }
+            textarea {
+                height: 230px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- POPUP -->
+    <div class="overlay" id="popup">
+        <div class="dialog">
+            <div class="dialog-header">
+                <div class="text">
+                    <div class="title">PHZ CHEATS</div>
+                    <div class="subtitle">Modded By @phzwqy</div>
+                </div>
+            </div>
+            <div class="channel-box">
+                🚀 Entrar No Telgram @PHZ_CHEATS
+            </div>
+            <div class="dialog-buttons">
+                <button class="btn-close" id="closeBtn">CLOSE</button>
+                <button class="btn-join" onclick="window.open('https://t.me/phzcheats','_blank')">ENTRAR NO TELEGRAM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP -->
+    <div class="container">
+        <div class="title-box">
+            <h1>PNG & Font → Header Converter</h1>
+        </div>
+        <div class="subtitle">Developer @phzwqy</div>
+
+        <!-- Theme Selector -->
+        <select id="themeSelect">
+            <option value="green" selected>Green Neon</option>
+            <option value="red">Red Neon</option>
+            <option value="blue">Blue Neon</option>
+            <option value="purple">Purple Neon</option>
+            <option value="orange">Orange Neon</option>
+            <option value="pink">Pink Neon</option>
+            <option value="cyan">Cyan Neon</option>
+            <option value="yellow">Yellow Neon</option>
+            <option value="lime">Lime Neon</option>
+            <option value="magenta">Magenta Neon</option>
+            <option value="teal">Teal Neon</option>
+            <option value="violet">Violet Neon</option>
+            <option value="indigo">Indigo Neon</option>
+            <option value="white">White Glow</option>
+            <option value="gray">Gray Glow</option>
+        </select>
+
+        <!-- File Inputs -->
+        <div class="inputs">
+            <div class="input-group">
+                <label for="pngInput">Select PNG File</label>
+                <input type="file" id="pngInput" accept=".png" multiple>
+            </div>
+            <div class="input-group">
+                <label for="fontInput">Select TTF Font</label>
+                <input type="file" id="fontInput" accept=".ttf" multiple>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="buttons">
+            <button onclick="copyCode()">📋 Copy Code</button>
+            <button onclick="downloadFile()">⬇️ Download .h</button>
+            <button onclick="clearOutput()">🧹 Clear</button>
+            <button onclick="startConversion()">▶️ Start</button>
+        </div>
+
+        <textarea id="output" readonly placeholder="// Converted code will appear here..."></textarea>
+
+        <div class="footer">© 2025 - 2030 | <a href="https://t.me/phzcheats" target="_blank">Telegram Click Aqui</a></div>
+    </div>
+
+    <script>
+        // THEME HANDLER
+        const themeSelect = document.getElementById('themeSelect');
+        const themes = {
+            green: '#00ff41',
+            red: '#ff1744',
+            blue: '#1e90ff',
+            purple: '#b000ff',
+            orange: '#ff9100',
+            pink: '#ff4081',
+            cyan: '#00e5ff',
+            yellow: '#ffff00',
+            lime: '#aaff00',
+            magenta: '#ff00ff',
+            teal: '#00bfa5',
+            violet: '#8c00ff',
+            indigo: '#3f51b5',
+            white: '#ffffff',
+            gray: '#bbbbbb'
+        };
+
+        function applyTheme(t) {
+            const c = themes[t];
+            document.querySelector('.container').style.boxShadow = `0 0 25px ${c}`;
+            document.querySelector('.title-box h1').style.color = c;
+            document.querySelector('.title-box').style.boxShadow = `0 0 18px ${c}`;
+            document.querySelector('.subtitle').style.color = c + 'aa';
+            
+            document.querySelectorAll('input[type="file"]').forEach(i => {
+                i.style.color = c;
+                i.style.borderColor = c;
+            });
+            
+            document.querySelectorAll('.buttons button').forEach(b => {
+                b.style.color = c;
+                b.style.borderColor = c;
+            });
+            
+            const ta = document.querySelector('textarea');
+            ta.style.borderColor = c;
+            ta.style.boxShadow = `0 0 15px ${c}`;
+            
+            const select = document.getElementById('themeSelect');
+            select.style.color = c;
+            select.style.borderColor = c;
+        }
+
+        themeSelect.addEventListener('change', e => applyTheme(e.target.value));
+        applyTheme('green');
+
+        // POPUP HANDLER
+        document.getElementById('closeBtn').addEventListener('click', () => {
+            document.getElementById('popup').style.display = "none";
+        });
+
+        // FILE VALIDATION
+        document.getElementById('pngInput').addEventListener('change', e => {
+            for (let f of e.target.files) {
+                if (!f.name.toLowerCase().endsWith(".png")) {
+                    alert("❌ Only PNG files allowed!");
+                    e.target.value = "";
+                    break;
+                }
+            }
+        });
+
+        document.getElementById('fontInput').addEventListener('change', e => {
+            for (let f of e.target.files) {
+                if (!f.name.toLowerCase().endsWith(".ttf")) {
+                    alert("❌ Only TTF font files allowed!");
+                    e.target.value = "";
+                    break;
+                }
+            }
+        });
+
+        // CONVERTER FUNCTIONS
+        async function fileToHeader(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const bytes = new Uint8Array(arrayBuffer);
+            let hexArray = [];
+            for (let i = 0; i < bytes.length; i++) {
+                hexArray.push("0x" + bytes[i].toString(16).padStart(2, '0'));
+            }
+            const chunks = [];
+            for (let i = 0; i < hexArray.length; i += 12) {
+                chunks.push("    " + hexArray.slice(i, i + 12).join(", "));
+            }
+            
+            // Clean filename for C variable
+            const varName = file.name.replace(/[^a-zA-Z0-9]/g, '_');
+            
+            let header = `// Converted by PHZ CHEATS\n`;
+            header += `// File: ${file.name}\n`;
+            header += `const unsigned char ${varName}_data[] = {\n${chunks.join(",\n")}\n};\n`;
+            header += `const unsigned int ${varName}_size = ${bytes.length};\n`;
+            return header;
+        }
+
+        async function startConversion() {
+            const output = document.getElementById('output');
+            const pngFiles = document.getElementById('pngInput').files;
+            const ttfFiles = document.getElementById('fontInput').files;
+
+            if (pngFiles.length === 0 && ttfFiles.length === 0) {
+                alert("Por favor, selecione ao menos um arquivo!");
+                return;
+            }
+
+            output.value = "// Conversion started...\n\n";
+
+            for (let file of pngFiles) {
+                output.value += await fileToHeader(file) + "\n";
+            }
+            for (let file of ttfFiles) {
+                output.value += await fileToHeader(file) + "\n";
+            }
+            output.value += "// ALL PROCESSING DONE ✅\n";
+        }
+
+        function copyCode() {
+            const output = document.getElementById('output');
+            if (!output.value || output.value.startsWith("// Converted")) {
+                alert("Nada para copiar!");
+                return;
+            }
+            output.select();
+            document.execCommand('copy');
+            alert('Código copiado com sucesso!');
+        }
+
+        function downloadFile() {
+            const output = document.getElementById('output');
+            if (!output.value || output.value.startsWith("// Converted")) {
+                alert("Nada para baixar!");
+                return;
+            }
+            const blob = new Blob([output.value], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'converted_assets.h';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        function clearOutput() {
+            document.getElementById('output').value = '';
+            document.getElementById('pngInput').value = '';
+            document.getElementById('fontInput').value = '';
+        }
+    </script>
+</body>
+</html>
+html>
